@@ -3,7 +3,7 @@ import os
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-
+from nuevo_usuario import Usuario
 usu = input("Ingrese el nombre de usuario: \n")
 pwwd = input("Ingrese la contraseña: \n")
 pwwd_conf = input("Ingrese la contraseña de nuevo: \n")
@@ -22,6 +22,7 @@ kdf = PBKDF2HMAC(
 )
 key = base64.urlsafe_b64encode(kdf.derive(pwwd))
 f=Fernet(key)
-
-print("todo ok: ",key)
+test = Usuario(usu,key)
+test.crear_usuario()
+print("todo ok: ")
 
