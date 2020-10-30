@@ -12,6 +12,7 @@ nombre_usuario = input("Ingrese nom usu \n")
 #print(test.cifrar_contraseñas())
 #print(test.cifrado_suave("hotmail","usuario","www.hotmail.com","contrasena"))
 #print(test.descifrado_suave())
+#se renombra el proyecto de pwwd_mngr o algo asi a fuck.exe
 
 conexion = sqlite3.connect("usuarios.db")
 cursor = conexion.execute("select nombre_usuario,contraseña,sal from usuarios where nombre_usuario =?",(nombre_usuario,))
