@@ -29,14 +29,14 @@ class Usuario:
         en caso contrario lanzara error y permanecera en la pantalla de inicio de sesión.
         """
         try:
-            self.query = self.conexion.execute("select nombre_usuario,contraseña,sal from usuarios where nombre_usuario = ?",(self.nombre_usuario,))
+            self.query = self.conexion.execute("select * from usuarios where nombre_usuario = ?",(self.nombre_usuario,))
             self.resultado = self.query.fetchone()
             if self.resultado is not None:
-                self.sal = self.resultado[2]
+                self.sal = self.resultado[3]
                 self.key = Cifrado(self.password).verificar_cifrado(self.sal)
             else:
                 return "el usuario no existe!"
-            if self.key == self.resultado[1]:
+            if self.key == self.resultado[2]:
                 return "el usuario si existe y las contraseñas coinciden!"
             else:
                 return "el usuario si existe pero las contraseñas no coinciden!"

@@ -5,10 +5,10 @@ from usuarios import Usuario
 
 class Aplicacion():
     def __init__(self):
-        self.ventana1=tk.Tk()
-        self.ventana1.title("Password manager")
-        self.ventana1.geometry("300x300")
-        self.cuaderno1 = ttk.Notebook(self.ventana1)
+        self.ventana_login=tk.Tk()
+        self.ventana_login.title("Password manager")
+        self.ventana_login.geometry("300x300")
+        self.cuaderno1 = ttk.Notebook(self.ventana_login)
 
         #login de usuario
         self.pagina1 = ttk.Frame(self.cuaderno1)
@@ -23,14 +23,14 @@ class Aplicacion():
         self.passwd_login=tk.StringVar()
         self.entrada_passwd=ttk.Entry(self.pagina1,width=25,textvariable=self.passwd_login)
         self.entrada_passwd.grid(column=1,row=1)
-        self.boton1=ttk.Button(self.pagina1, text="Cancelar", command=self.ventana1.destroy)
+        self.boton1=ttk.Button(self.pagina1, text="Cancelar", command=self.ventana_login.destroy)
         self.boton1.grid(column=0,row=2)
         self.boton2=ttk.Button(self.pagina1, text="Aceptar",command=self.verifica_usuario)
         self.boton2.grid(column=1,row=2)
 
         #registra usuario
         self.pagina2 = ttk.Frame(self.cuaderno1)
-        self.cuaderno1.add(self.pagina2,text="Añadir Usuario")
+        self.cuaderno1.add(self.pagina2,text="Registrarse")
         self.label1=ttk.Label(self.pagina2,text="Usuario:")
         self.label1.grid(column=0,row=0)
         self.usuario=tk.StringVar()
@@ -46,20 +46,20 @@ class Aplicacion():
         self.confirma_passwd=tk.StringVar()
         self.entrada_confirma_passwd=ttk.Entry(self.pagina2,width=25,textvariable=self.confirma_passwd)
         self.entrada_confirma_passwd.grid(column=1,row=2)
-        self.boton1=ttk.Button(self.pagina2, text="Cancelar", command=self.ventana1.destroy)
+        self.boton1=ttk.Button(self.pagina2, text="Cancelar", command=self.ventana_login.destroy)
         self.boton1.grid(column=0,row=3)
         self.boton2=ttk.Button(self.pagina2, text="Aceptar", command=self.verifica_contra)
         self.boton2.grid(column=1,row=3)
 
         self.cuaderno1.grid(column=0, row=0)
-        self.ventana1.mainloop()
+        self.ventana_login.mainloop()
 
     def verifica_contra(self):
-        self.passwd = str(self.passwd.get())
-        self.confirma_passwd = str(self.confirma_passwd.get())
-        self.usuario = str(self.usuario.get())
-        if self.passwd == self.confirma_passwd:
-            self.resultado = Usuario(self.usuario,self.passwd)
+        passwd = str(self.passwd.get())
+        confirma_passwd = str(self.confirma_passwd.get())
+        usuario = str(self.usuario.get())
+        if passwd == confirma_passwd:
+            self.resultado = Usuario(usuario,passwd)
             self.mensaje_exito = messagebox.showinfo(title="resultado", message=self.resultado.crear_usuario())
         else:
             self.mensaje_exito = messagebox.showwarning(title="resultado", message="¡las contraseñas no coinciden!")
