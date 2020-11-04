@@ -35,11 +35,11 @@ class Usuario:
                 self.sal = self.resultado[3]
                 self.key = Cifrado(self.password).verificar_cifrado(self.sal)
             else:
-                return "el usuario no existe!"
+                return None
             if self.key == self.resultado[2]:
-                return "el usuario si existe y las contraseñas coinciden!"
+                return self.resultado[0]
             else:
-                return "el usuario si existe pero las contraseñas no coinciden!"
+                return None
 
         except Exception as err:
             self.resultado = err

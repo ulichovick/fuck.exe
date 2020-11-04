@@ -37,10 +37,11 @@ class Cifrado:
         self.key = base64.urlsafe_b64encode(self.kdf.derive(self.pwwd))
         return (self.key)
 
-    def cifrado_suave(self,nom_cuenta,login,url,cuenta_pwwd):
+    def cifrado_suave(self,nom_cuenta,login,url,cuenta_pwwd,key):
         """
         cifra data según las credenciales del usuario 
         """
+        self.key = key
         self.f = Fernet(self.key)
         self.nom_cuenta = nom_cuenta
         self.login = login
@@ -50,20 +51,20 @@ class Cifrado:
         self.login = str.encode(self.login)
         self.url = str.encode(self.url)
         self.cuenta_pwwd = str.encode(self.cuenta_pwwd)
-        self.token1 = self.f.encrypt(self.nom_cuenta)
-        self.token2 = self.f.encrypt(self.login)
-        self.token3 = self.f.encrypt(self.url)
-        self.token4 = self.f.encrypt(self.cuenta_pwwd)
-        return(self.token1,self.token2,self.token3,self.token4)
+        self.sitio = self.f.encrypt(self.nom_cuenta)
+        self.login = self.f.encrypt(self.login)
+        self.url = self.f.encrypt(self.url)
+        self.password = self.f.encrypt(self.cuenta_pwwd)
+        return(self.sitio,self.login,self.url,self.password)
 
     def descifrado_suave(self):
         """
         descifra data según las credenciales del usuario 
         """
-        self.nom_cuenta_des = self.f.decrypt(self.token1)
-        self.login_des = self.f.decrypt(self.token2)
-        self.url_des = self.f.decrypt(self.token3)
-        self.cuenta_pwwd_des = self.f.decrypt(self.token4)
+        self.nom_cuenta_des = self.f.decrypt(self.sitio)
+        self.login_des = self.f.decrypt(self.login)
+        self.url_des = self.f.decrypt(self.url)
+        self.cuenta_pwwd_des = self.f.decrypt(self.password)
         self.nom_cuenta_des = self.nom_cuenta_des.decode()
         self.login_des = self.login_des.decode()
         self.url_des = self.url_des.decode()

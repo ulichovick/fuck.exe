@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from usuarios import Usuario
-
+from vista_cuentas import index
 class Aplicacion():
     def __init__(self):
         self.ventana_login=tk.Tk()
@@ -67,5 +67,10 @@ class Aplicacion():
         self.passwd = str(self.passwd_login.get())
         self.usuario = str(self.usuario_login.get())
         self.resultado = Usuario(self.usuario,self.passwd)
-        self.mensaje = messagebox.showinfo(title="resultado", message=self.resultado.verificar_usuario())
+        self.resultado = self.resultado.verificar_usuario()
+        if self.resultado is not None:
+            self.ventana_login.destroy()
+            self.cuentas = index(self.resultado)
+        else:
+            self.mensaje = messagebox.showinfo(title="resultado", message="¡error, el usuario no existe o la contraseña es incorrecta!")
 app1=Aplicacion()
