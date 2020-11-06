@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from cuentas import cuenta
+from Cuentas import cuenta
 from Cifrado import Cifrado
 class index:
     """
