@@ -6,7 +6,9 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 
 class Cifrado:
-    def __init__(self, pwwd):
+    def __init__(
+                self,
+                pwwd):
         self.pwwd = pwwd
         self.pwwd = str.encode(self.pwwd)
 
@@ -25,7 +27,9 @@ class Cifrado:
         return (self.key,
                 self.salt)
 
-    def verificar_cifrado(self, sal):
+    def verificar_cifrado(
+                        self,
+                        sal):
         """
         cifra el usuario y contraseña con la sal suministrada por el usuario
         PD: insegura, a futuro modificarla
@@ -40,7 +44,13 @@ class Cifrado:
         self.key = base64.urlsafe_b64encode(self.kdf.derive(self.pwwd))
         return (self.key)
 
-    def cifrado_suave(self, nom_cuenta, login, url, cuenta_pwwd, key):
+    def cifrado_suave(
+                    self,
+                    nom_cuenta,
+                    login,
+                    url,
+                    cuenta_pwwd,
+                    key):
         """
         cifra data según las credenciales del usuario
         """
@@ -63,7 +73,13 @@ class Cifrado:
                 self.url,
                 self.password)
 
-    def descifrado_suave(self, nom_cuenta, login, url, cuenta_pwwd, key):
+    def descifrado_suave(
+                        self,
+                        nom_cuenta,
+                        login,
+                        url,
+                        cuenta_pwwd,
+                        key):
         """
         descifra data según las credenciales del usuario
         """
