@@ -108,6 +108,8 @@ class Aplicacion():
     def verifica_usuario(self):
         self.passwd = str(self.passwd_login.get())
         self.passwd = self.passwd
+        self.nombre_usuario = str(self.usuario_login.get())
+        self.nombre_usuario = self.nombre_usuario
         self.usuario = str(self.usuario_login.get())
         self.resultado = Usuario(
                                 self.usuario,
@@ -117,7 +119,8 @@ class Aplicacion():
             self.ventana_login.destroy()
             self.cuentas = index(
                                 self.resultado,
-                                self.passwd)
+                                self.passwd,
+                                self.nombre_usuario)
         else:
             self.mensaje = messagebox.showinfo(
                                             title="resultado",
