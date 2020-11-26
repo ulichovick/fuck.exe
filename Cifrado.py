@@ -79,6 +79,8 @@ class Cifrado:
                         login,
                         url,
                         cuenta_pwwd,
+                        id_cuenta,
+                        id_usuario,
                         key):
         """
         descifra data según las credenciales del usuario
@@ -89,6 +91,8 @@ class Cifrado:
         self.login = login
         self.url = url
         self.password = cuenta_pwwd
+        self.id_cuenta = id_cuenta
+        self.id_usuario = id_usuario
         self.nom_cuenta_des = self.f.decrypt(self.sitio)
         self.login_des = self.f.decrypt(self.login)
         self.url_des = self.f.decrypt(self.url)
@@ -100,4 +104,6 @@ class Cifrado:
         return (self.nom_cuenta_des,
                 self.login_des,
                 self.url_des,
-                self.cuenta_pwwd_des)
+                self.cuenta_pwwd_des,
+                self.id_cuenta,
+                self.id_usuario)

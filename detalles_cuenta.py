@@ -2,16 +2,19 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from Cuentas import cuenta
+import webbrowser
 
 class Detallescuentas:
     def __init__(
                 self,
                 ventanaprincipal,
-                data_cuenta):
+                data_cuenta,
+                master_password):
         """
         ventana para crear cuentas nuevas
         """
         self.data_cuenta = data_cuenta
+        self.master_password = master_password
         self.ventana_detalles_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_detalles_cuentas.title("Detalles " + data_cuenta[0])
         self.ventana_detalles_cuentas.geometry("300x300")
@@ -25,26 +28,26 @@ class Detallescuentas:
                                     width=25,
                                     textvariable=self.registra_sitio)
         self.entrada_sitio.grid(column=1, row=0)
-        self.url_sitio = ttk.Label(
-                                self.ventana_detalles_cuentas,
-                                text="URL sitio:")
-        self.url_sitio.grid(column=0, row=1)
-        self.registra_url = tk.StringVar()
-        self.entrada_url = ttk.Entry(
-                                    self.ventana_detalles_cuentas,
-                                    width=25,
-                                    textvariable=self.registra_url)
-        self.entrada_url.grid(column=1, row=1)
         self.login = ttk.Label(
-                            self.ventana_detalles_cuentas,
-                            text="Usuario/Mail:")
-        self.login.grid(column=0, row=2)
+                                self.ventana_detalles_cuentas,
+                                text="Usuario/Mail:")
+        self.login.grid(column=0, row=1)
         self.registra_login = tk.StringVar()
         self.entrada_login = ttk.Entry(
                                     self.ventana_detalles_cuentas,
                                     width=25,
                                     textvariable=self.registra_login)
-        self.entrada_login.grid(column=1, row=2)
+        self.entrada_login.grid(column=1, row=1)
+        self.url_sitio = ttk.Label(
+                            self.ventana_detalles_cuentas,
+                            text="URL sitio:")
+        self.url_sitio.grid(column=0, row=2)
+        self.registra_url = tk.StringVar()
+        self.entrada_url = ttk.Entry(
+                                    self.ventana_detalles_cuentas,
+                                    width=25,
+                                    textvariable=self.registra_url)
+        self.entrada_url.grid(column=1, row=2)
         self.pwwd = ttk.Label(
                             self.ventana_detalles_cuentas,
                             text="Contraseña:")
@@ -56,58 +59,99 @@ class Detallescuentas:
                                     show="*",
                                     textvariable=self.registra_pwwd)
         self.entrada_pwwd.grid(column=1, row=3)
+        self.boton_mostrar_pwwd = ttk.Button(
+                                            self.ventana_detalles_cuentas,
+                                            text="E",
+                                            width=3,
+                                            command=self.mostrar_contras)
+        self.boton_mostrar_pwwd.grid(column=2, row=3)
+        self.copiar = ttk.Button(
+                                            self.ventana_detalles_cuentas,
+                                            text=" ",
+                                            width=3,
+                                            command=self.copiar_clipb)
+        self.copiar.grid(column=3, row=3)
         self.boton_borrar = ttk.Button(
                                         self.ventana_detalles_cuentas,
                                         text="Delete this",
                                         command=self.delete_this)
         self.boton_borrar.grid(column=0, row=4)
-        self.boton_cancelar = ttk.Button(
-                                        self.ventana_detalles_cuentas,
-                                        text="Cancelar",
-                                        command=self.ventana_detalles_cuentas.destroy)
-        self.boton_cancelar.grid(column=1, row=4)
         self.boton_aceptar = ttk.Button(
                                         self.ventana_detalles_cuentas,
                                         text="Abrir",
-                                        command=self.verifica_contra)
-        self.boton_aceptar.grid(column=2, row=4)
+                                        command=self.abrir_navegador)
+        self.boton_aceptar.grid(column=1, row=4)
         self.boton_guardar = ttk.Button(
                                         self.ventana_detalles_cuentas,
-                                        text="Guardar",
-                                        command=self.verifica_contra)
-        self.boton_guardar.grid(column=3, row=4)
+                                        text="Actualizar",
+                                        command=self.actualiza_data)
+        self.boton_guardar.grid(column=1, row=5)
         self.entrada_sitio.insert(0,self.data_cuenta[0])
-        self.entrada_url.insert(0,self.data_cuenta[1])
-        self.entrada_login.insert(0,self.data_cuenta[2])
+        self.entrada_login.insert(0,self.data_cuenta[1])
+        self.entrada_url.insert(0,self.data_cuenta[2])
         self.entrada_pwwd.insert(0,self.data_cuenta[3])
         self.ventana_detalles_cuentas.mainloop()
 
-    def verifica_contra(self):
-        registra_sitio = str(self.registra_sitio.get())
-        registra_url = str(self.registra_url.get())
-        registra_login = str(self.registra_login.get())
-        registra_pwwd = str(self.registra_pwwd.get())
-        confirma_pwwd = str(self.registra_confirma_pwwd.get())
-        if registra_pwwd == confirma_pwwd:
-            self.cuenta_nueva = cuenta(
-                                    self.id_usuario,
-                                    registra_sitio,
-                                    registra_url,
-                                    registra_login,
-                                    registra_pwwd,
-                                    self.master_password).crear_cuenta()
+    def actualiza_data(self):
+        registra_sitio = str(self.entrada_sitio.get())
+        registra_url = str(self.entrada_url.get())
+        registra_login = str(self.entrada_login.get())
+        registra_pwwd = str(self.entrada_pwwd.get())
+        self.id_cuenta = self.data_cuenta[4]
+        self.id_usuario = self.data_cuenta[5]
+        self.cuenta_nueva = cuenta(
+                                self.id_usuario,
+                                registra_sitio,
+                                registra_url,
+                                registra_login,
+                                registra_pwwd,
+                                self.master_password).modificar_cuenta(self.id_cuenta)
+        if self.cuenta_nueva == True:
             self.mensaje_exito = messagebox.showinfo(
-                                                    title="resultado",
-                                                    message="¡Registro realizado con éxito! "+self.cuenta_nueva,
-                                                    parent=self.ventana_detalles_cuentas)
+                                        title="resultado",
+                                        message="¡Actualización realizada con éxito! ",
+                                        parent=self.ventana_detalles_cuentas)
             self.ventana_detalles_cuentas.destroy()
         else:
             self.mensaje_exito = messagebox.showwarning(
                                                     title="resultado",
-                                                    message="¡las contraseñas no coinciden!",
+                                                    message="¡Error al realizar la actualización!",
                                                     parent=self.ventana_detalles_cuentas)
+
+    def mostrar_contras(self):
+        """
+        muestra la contraseña
+        """
+        self.entrada_pwwd.config(show="")
+        self.boton_mostrar_pwwd.config(text="*",command=self.ocultar_contras)
+    
+    def ocultar_contras(self):
+        """
+        oculta la contraseña
+        """
+        self.entrada_pwwd.config(show="*")
+        self.boton_mostrar_pwwd.config(text="E",command=self.mostrar_contras)
+    
+    def copiar_clipb(self):
+        """
+        copia al portapapeles
+        """
+        self.ventana_detalles_cuentas.clipboard_clear()
+        self.ventana_detalles_cuentas.clipboard_append(str(self.registra_pwwd.get()))
+        self.msj_confirma_copia = ttk.Label(
+                            self.ventana_detalles_cuentas,
+                            text="Contraseña copiada al portapapeles")
+        self.msj_confirma_copia.grid(column=1, row=6)
+        self.ventana_detalles_cuentas.after(1000,self.msj_confirma_copia.destroy)
+    
     def delete_this(self):
         """
         borra la cuenta actual de la base de datos
         """
         pass
+    
+    def abrir_navegador(self):
+        """
+        abre el link en navegador
+        """
+        webbrowser.open(str(self.registra_url.get()))

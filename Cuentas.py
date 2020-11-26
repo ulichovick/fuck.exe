@@ -56,7 +56,7 @@ class cuenta:
         """
         try:
             self.query = self.conexion.execute(
-                                            """select Nombre_cuenta,Login,URL,contraseña,sal from cuentas where ID_usuario = ?""",
+                                            """select Nombre_cuenta,Login,URL,contraseña,sal,ID_cuenta,ID_usuario from cuentas where ID_usuario = ?""",
                                             (self.id_usuario))
             self.query = self.query.fetchall()
             return (self.query)
@@ -64,5 +64,43 @@ class cuenta:
         except Exception as err:
             self.resultado = err
             return self.resultado
+        finally:
+            self.conexion.close()
+
+    def modificar_cuenta(self,id_cuenta):
+        """
+        modifica la cuenta
+        """
+        self.id_cuenta = id_cuenta
+
+        try:
+            self.query = self.conexion.execute(
+                                            """select Nombre_cuenta,Login,URL,contraseña,sal,ID_cuenta from cuentas 
+                                            where ID_usuario = ?
+                                            AND ID_cuenta = ?""",
+                                            (self.id_usuario,self.id_cuenta))
+            self.query = self.query.fetchone()
+            self.cifrado = Cifrado(self.master_password)
+            self.cifrado_pass = self.cifrado.verificar_cifrado(self.query[4])
+            self.sitio, self.login, self.url, self.password = Cifrado(self.master_password).cifrado_suave(
+                                                                                                self.sitio,
+                                                                                                self.login,
+                                                                                                self.url,
+                                                                                                self.password,
+                                                                                                self.cifrado_pass)
+            self.query = self.conexion.execute(
+                                            """update cuentas set
+                                            Nombre_cuenta = ?,
+                                            Login = ?,
+                                            URL = ?,
+                                            contraseña = ?
+                                            where ID_usuario = ?
+                                            AND ID_cuenta = ?""",
+                                            (self.sitio,self.login,self.url,self.password,self.id_usuario,self.id_cuenta))
+            self.conexion.commit()
+            return True
+        except Exception as err:
+            self.resultado = err
+            return str(self.resultado)
         finally:
             self.conexion.close()

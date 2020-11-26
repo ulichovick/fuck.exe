@@ -58,9 +58,12 @@ class index:
                                                                 row[0],
                                                                 row[1],
                                                                 row[2],
-                                                                row[3],
+                                                                row[3], 
+                                                                row[5],
+                                                                row[6],
                                                                 cifrado_pass))
         self.info_cuentas = self.data_cuenta
+        print(self.info_cuentas)
         self.i = 1
         self.j = 0
         self.k = 0
@@ -106,5 +109,6 @@ class index:
         self.data = data
         self.detalles = Detallescuentas(
                                         self.ventana_cuentas,
-                                        self.data)
+                                        self.data,
+                                        self.master_password)
         self.data_cuenta.clear()
