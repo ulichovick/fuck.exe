@@ -1,2 +1,2 @@
 # pwd_mngr.py
-creado 4 teh lulz
+I did it 4 teh lulz
