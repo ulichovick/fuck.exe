@@ -18,7 +18,7 @@ class Detallescuentas:
         self.ventana_detalles_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_detalles_cuentas.title("Detalles " + data_cuenta[0])
         self.ventana_detalles_cuentas.geometry("300x300")
-        self.ventana_detalles_cuentas.iconbitmap(r"D:\Programacion\Python\fuck.exe\icons\key.ico")
+        self.ventana_detalles_cuentas.iconbitmap(r"D:\Programacion\Proyectos\fuck.exe\icons\key.ico")
         self.nombre_sitio = ttk.Label(
                                     self.ventana_detalles_cuentas,
                                     text="Nombre sitio:")
@@ -66,7 +66,7 @@ class Detallescuentas:
                                             width=3,
                                             command=self.mostrar_contras)
         self.boton_mostrar_pwwd.grid(column=2, row=3)
-        self.logo = PhotoImage(file = r"D:\Programacion\Python\fuck.exe\icons\copy.png")
+        self.logo = PhotoImage(file = r"D:\Programacion\Proyectos\fuck.exe\icons\copy.png")
         self.copiar = ttk.Button(
                                             self.ventana_detalles_cuentas,
                                             text=" ",

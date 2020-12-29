@@ -26,7 +26,7 @@ class index:
         self.titulo = "Cuentas de " + self.nombre_usuario
         self.ventana_cuentas.title(self.titulo)
         self.ventana_cuentas.geometry("250x250")
-        self.ventana_cuentas.iconbitmap(r"D:\Programacion\Python\fuck.exe\icons\key.ico")
+        self.ventana_cuentas.iconbitmap(r"D:\Programacion\Proyectos\fuck.exe\icons\key.ico")
         self.frame_ops = ttk.Frame()
         self.frame_ops.grid(column=0, row=0)
         self.labelframe_operaciones = ttk.LabelFrame(self.frame_ops,text="Operaciones:")

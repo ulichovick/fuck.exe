@@ -10,7 +10,7 @@ class Aplicacion():
         self.ventana_login = tk.Tk()
         self.ventana_login.title("Password manager")
         self.ventana_login.geometry("300x300")
-        self.ventana_login.iconbitmap(r"D:\Programacion\Python\fuck.exe\icons\key.ico")
+        self.ventana_login.iconbitmap(r"D:\Programacion\Proyectos\fuck.exe\icons\key.ico")
         self.cuaderno1 = ttk.Notebook(self.ventana_login)
 
         # login de usuario

@@ -17,7 +17,7 @@ class Creacioncuentas:
         self.ventana_crear_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_crear_cuentas.title("Registrar nueva cuenta")
         self.ventana_crear_cuentas.geometry("300x300")
-        self.ventana_crear_cuentas.iconbitmap(r"D:\Programacion\Python\fuck.exe\icons\key.ico")
+        self.ventana_crear_cuentas.iconbitmap(r"D:\Programacion\Proyectos\fuck.exe\icons\key.ico")
         self.nombre_sitio = ttk.Label(
                                     self.ventana_crear_cuentas,
                                     text="Nombre sitio:")
