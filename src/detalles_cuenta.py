@@ -3,7 +3,7 @@ from tkinter import PhotoImage, ttk
 from tkinter import messagebox
 from .Cuentas import cuenta
 import webbrowser
-
+import os
 class Detallescuentas:
     def __init__(
                 self,
@@ -13,12 +13,14 @@ class Detallescuentas:
         """
         ventana para crear cuentas nuevas
         """
+        self.dir = os.path.abspath(os.getcwd())
+        self.dir = self.dir + "\icons\key.ico"
         self.data_cuenta = data_cuenta
         self.master_password = master_password
         self.ventana_detalles_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_detalles_cuentas.title("Detalles " + data_cuenta[0])
         self.ventana_detalles_cuentas.geometry("300x300")
-        self.ventana_detalles_cuentas.iconbitmap(r"D:\Programacion\Proyectos\fuck.exe\icons\key.ico")
+        self.ventana_detalles_cuentas.iconbitmap(self.dir)
         self.nombre_sitio = ttk.Label(
                                     self.ventana_detalles_cuentas,
                                     text="Nombre sitio:")
@@ -60,13 +62,18 @@ class Detallescuentas:
                                     show="*",
                                     textvariable=self.registra_pwwd)
         self.entrada_pwwd.grid(column=1, row=3)
+        self.dir = os.path.abspath(os.getcwd())
+        self.dir = self.dir + "\icons\show.png"
+        self.logo_pwwd = PhotoImage(file = self.dir)
         self.boton_mostrar_pwwd = ttk.Button(
                                             self.ventana_detalles_cuentas,
-                                            text="E",
+                                            image=self.logo_pwwd,
                                             width=3,
                                             command=self.mostrar_contras)
         self.boton_mostrar_pwwd.grid(column=2, row=3)
-        self.logo = PhotoImage(file = r"D:\Programacion\Proyectos\fuck.exe\icons\copy.png")
+        self.dir = os.path.abspath(os.getcwd())
+        self.dir = self.dir + "\icons\copy.png"
+        self.logo = PhotoImage(file = self.dir)
         self.copiar = ttk.Button(
                                             self.ventana_detalles_cuentas,
                                             text=" ",
@@ -125,15 +132,21 @@ class Detallescuentas:
         """
         muestra la contraseña
         """
+        self.dir = os.path.abspath(os.getcwd())
+        self.dir = self.dir + "\icons\hide.png"
+        self.logo_show = PhotoImage(file = self.dir)
         self.entrada_pwwd.config(show="")
-        self.boton_mostrar_pwwd.config(text="*",command=self.ocultar_contras)
+        self.boton_mostrar_pwwd.config(image=self.logo_show,command=self.ocultar_contras)
     
     def ocultar_contras(self):
         """
         oculta la contraseña
         """
+        self.dir = os.path.abspath(os.getcwd())
+        self.dir = self.dir + "\icons\show.png"
+        self.logo_hide = PhotoImage(file = self.dir)
         self.entrada_pwwd.config(show="*")
-        self.boton_mostrar_pwwd.config(text="E",command=self.mostrar_contras)
+        self.boton_mostrar_pwwd.config(image=self.logo_hide,command=self.mostrar_contras)
     
     def copiar_clipb(self):
         """
@@ -143,7 +156,7 @@ class Detallescuentas:
         self.ventana_detalles_cuentas.clipboard_append(str(self.registra_pwwd.get()))
         self.msj_confirma_copia = ttk.Label(
                             self.ventana_detalles_cuentas,
-                            text="Contraseña copiada al portapapeles")
+                            text="Copiada al portapapeles")
         self.msj_confirma_copia.grid(column=1, row=6)
         self.ventana_detalles_cuentas.after(1000,self.msj_confirma_copia.destroy)
     

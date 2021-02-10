@@ -1,4 +1,4 @@
-from os import name
+import os
 from .detalles_cuenta import Detallescuentas
 import tkinter as tk
 from tkinter import ttk
@@ -16,6 +16,9 @@ class index:
                 id_usuario,
                 password,
                 nom_usu):
+        self.dir = os.path.abspath(os.getcwd())
+        self.dir = self.dir + "\icons\key.ico"
+        print(self.dir)
         self.id_usuario = id_usuario
         self.master_password = password
         self.nombre_usuario = nom_usu
@@ -23,10 +26,10 @@ class index:
         self.data = []
         self.boton_cuentas = {}
         self.ventana_cuentas = tk.Tk()
-        self.titulo = "Cuentas de " + self.nombre_usuario
+        self.titulo = "Cuentas: " + self.nombre_usuario
         self.ventana_cuentas.title(self.titulo)
         self.ventana_cuentas.geometry("250x250")
-        self.ventana_cuentas.iconbitmap(r"D:\Programacion\Proyectos\fuck.exe\icons\key.ico")
+        self.ventana_cuentas.iconbitmap(self.dir)
         self.frame_ops = ttk.Frame()
         self.frame_ops.grid(column=0, row=0)
         self.labelframe_operaciones = ttk.LabelFrame(self.frame_ops,text="Operaciones:")

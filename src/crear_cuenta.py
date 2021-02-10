@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from .Cuentas import cuenta
-
+import os
 class Creacioncuentas:
     def __init__(
                 self,
@@ -12,12 +12,14 @@ class Creacioncuentas:
         """
         ventana para crear cuentas nuevas
         """
+        self.dir = os.path.abspath(os.getcwd())
+        self.dir = self.dir + "\icons\key.ico"
         self.id_usuario = id_usuario
         self.master_password = password
         self.ventana_crear_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_crear_cuentas.title("Registrar nueva cuenta")
         self.ventana_crear_cuentas.geometry("300x300")
-        self.ventana_crear_cuentas.iconbitmap(r"D:\Programacion\Proyectos\fuck.exe\icons\key.ico")
+        self.ventana_crear_cuentas.iconbitmap(self.dir)
         self.nombre_sitio = ttk.Label(
                                     self.ventana_crear_cuentas,
                                     text="Nombre sitio:")
